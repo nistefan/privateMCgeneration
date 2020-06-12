@@ -76,8 +76,7 @@ def CreateSubmissionScript(Pathtodirectory, DirectoryName, CMSSW_BASE, cmsRunCom
 
 ###Creating the end of submission script which is fixed once for all HTCondor scripts
     
-CreateEndOfSubmissionScript="environment = \"LD_LIB_PATH="+TheLibraryPath+" X509_USER_PROXY=/nfs/dust/cms/user/stefanon/DM_Sample_Production/CMSSW_9_4_15/src/tmp/x509up_u123 \" \n" #change this to your proxy path and proxy number  
-
+CreateEndOfSubmissionScript="environment = \"LD_LIB_PATH="+TheLibraryPath+" X509_USER_PROXY=/nfs/dust/cms/user/stefanon/DM_Sample_Production/CMSSW_9_4_15/src/tmp/x509up_u28074\" \n"
 if args.cpurequest is not None:
                                 CreateEndOfSubmissionScript+=" request_cpus = "+ args.cpurequest + "\n"
 
@@ -89,7 +88,7 @@ if args.timerequest is not None:
 
 ### For accessing pileup root files which aren't on DESY Tier2:
 ### mkdir tmp in working directory, copy proxy credential into working directory: cp /tmp/x509up_XXX  WorkingDirectory/tmp/.
-
+#CreateEndOfSubmissionScript+="transfer_input_files = /nfs/dust/cms/user/stefanon/DM_Sample_Production/CMSSW_9_4_15/src/tmp/x509up_u28074\n"
 
 ### max_materialize had problems once. Don't worry, simply deactivate if HTCondor submission does not work.
 CreateEndOfSubmissionScript+="max_materialize = 1000\n"
@@ -111,7 +110,18 @@ pathArray =[
 #'/pnfs/desy.de/cms/tier2/store/user/nstefano/TopDMJets_scalar_tWChan_Mchi-1_Mphi-100_TuneCP5_13TeV-madgraphMLM-pythia8-GENSIM/'
 
 #'/pnfs/desy.de/cms/tier2/store/user/nstefano/2017/TopDMJets_scalar_tWChan_Mchi-1_Mphi-100_TuneCP5_13TeV-madgraphMLM-pythia8-PremixStep1/'
-'/pnfs/desy.de/cms/tier2/store/user/nstefano/2017/TopDMJets_scalar_tWChan_Mchi-1_Mphi-100_TuneCP5_13TeV-madgraphMLM-pythia8-AODSIM/'
+#'/pnfs/desy.de/cms/tier2/store/user/nstefano/2017/TopDMJets_scalar_tWChan_Mchi-1_Mphi-100_TuneCP5_13TeV-madgraphMLM-pythia8-AODSIM/'
+
+#'/pnfs/desy.de/cms/tier2/store/user/nstefano/2017/TopDMJets_scalar_tWChan_Mchi_1_Mphi_10_TuneCP5_13TeV_madgraphMLM_pythia8_RunIIFall17_AODSIM/'
+
+'/pnfs/desy.de/cms/tier2/store/user/nstefano/2017/TopDMJets_scalar_tWChan_Mchi_1_Mphi_20_TuneCP5_13TeV_madgraphMLM_pythia8_RunIIFall17_AODSIM/',
+
+'/pnfs/desy.de/cms/tier2/store/user/nstefano/2017/TopDMJets_scalar_tWChan_Mchi_1_Mphi_50_TuneCP5_13TeV_madgraphMLM_pythia8_RunIIFall17_AODSIM/',
+'/pnfs/desy.de/cms/tier2/store/user/nstefano/2017/TopDMJets_scalar_tWChan_Mchi_1_Mphi_200_TuneCP5_13TeV_madgraphMLM_pythia8_RunIIFall17_AODSIM/',
+'/pnfs/desy.de/cms/tier2/store/user/nstefano/2017/TopDMJets_scalar_tWChan_Mchi_1_Mphi_300_TuneCP5_13TeV_madgraphMLM_pythia8_RunIIFall17_AODSIM/',
+'/pnfs/desy.de/cms/tier2/store/user/nstefano/2017/TopDMJets_scalar_tWChan_Mchi_1_Mphi_500_TuneCP5_13TeV_madgraphMLM_pythia8_RunIIFall17_AODSIM/',
+'/pnfs/desy.de/cms/tier2/store/user/nstefano/2017/TopDMJets_scalar_tWChan_Mchi_1_Mphi_1000_TuneCP5_13TeV_madgraphMLM_pythia8_RunIIFall17_AODSIM/',
+
 #'/pnfs/desy.de/cms/tier2/store/user/nstefano/2017/TTbarDMJets_Dilepton_scalar_LO_Mchi-1_Mphi-100_TuneCP5_13TeV-madgraph-mcatnlo-pythia8-ext1-GENSIM/GENSIM/191113_142950/',
 #'/pnfs/desy.de/cms/tier2/store/user/nstefano/2017/TTbarDMJets_Dilepton_PS1_LO_Mchi-1_Mphi-100_TuneCP5_13TeV-madgraph-mcatnlo-pythia8-GENSIM/GENSIM/191113_161713/'
 #'/pnfs/desy.de/cms/tier2/store/user/nstefano/2017/TTbarDMJets_Dilepton_pseudoscalar_LO_Mchi-1_Mphi-100_TuneCP5_13TeV-madgraph-mcatnlo-pythia8-GENSIM/GENSIM/191112_142815/',
@@ -213,8 +223,8 @@ NewDirectoriesSuffix = "MINIAODSIM" #"AODSIM" #"PremixStep1"  #"2018-NANOAODSIM"
 if args.submit:
     if getIdlingJobs > maxIdlingJobsAccepted:
         sys.exit(pycolors.blue+"Stop running this script due to too many jobs idling on HTCondor; try later again"+pycolors.end)
-WhatDirectoryToStoreIn = "TopDMJets_scalar_tWChan_Mchi_1_Mphi_100_TuneCP5_13TeV_madgraphMLM_pythia8_MINIAODSIM/240420_155333/0000/"
-ExtraDirectoryCreationOnPNFS = "240420_155333/0000/" #"2017/" #"2018/" #Don't forget / at the end.
+WhatDirectoryToStoreIn = "" #"TopDMJets_scalar_tWChan_Mchi_1_Mphi_100_TuneCP5_13TeV_madgraphMLM_pythia8_MINIAODSIM/240420_155333/0000/"
+ExtraDirectoryCreationOnPNFS = "280520_155333/0000/" #"220520_155333/0000/" #"240420_155333/0000/" #"2017/" #"2018/" #Don't forget / at the end.
 #Monitoring files being created during run
 tobeRemovedtxt ="tobeRemovedAOD.txt"
 FilesToBeCopiedToPNFStxt = "FilesToBeCopiedToPNFS_AOD.txt"
@@ -241,6 +251,15 @@ if len(removetxtFile)>2:
 ######################################################################################
 
 for path in pathArray:
+
+
+  if path.split('/')[-1]:
+      WhatDirectoryToStoreIn = path.split('/')[-1]
+  elif path.split('/')[-2]:
+      WhatDirectoryToStoreIn = path.split('/')[-2]
+  
+  WhatDirectoryToStoreIn = WhatDirectoryToStoreIn.replace(OldDirectoriesSuffix, NewDirectoriesSuffix)
+  WhatDirectoryToStoreIn = WhatDirectoryToStoreIn+"/"+ExtraDirectoryCreationOnPNFS
   numberOfFiles = 0
   files = []
   # r=root, d=directories, f = files  ### here root does not refer to .root-files    
@@ -324,13 +343,13 @@ for path in pathArray:
 #          print(getNumberOfRootFileInDirectoryNameOld)
           getNumberOfRootFileInDirectoryNameOld = getNumberOfRootFileInDirectoryNameOld[-3]
   #        print(getNumberOfRootFileInDirectoryNameOld)
-          TemplateFileNameAdjusted = DirectoryName+"_"+str(getNumberOfRootFileInDirectoryNameOld)+"_"+templateFile
+          TemplateFileNameAdjusted = DirectoryName+"_"+str(getNumberOfRootFileInDirectoryNameOld)+"_cfg.py" #"_"+templateFile
    #       print(TemplateFileNameAdjusted)
     #      sys.exit("Stopping test")          
       else:
-          TemplateFileNameAdjusted = DirectoryName+"_"+str(countTemplateFiles)+"_"+templateFile
+          TemplateFileNameAdjusted = DirectoryName+"_"+str(countTemplateFiles)+"_cfg.py" #"_"+templateFile
       if not TemplateFileNameAdjusted: sys.exit("Error in  assinging a label in TemplateFileNameAdjusted.")
-      outputRootfile = TemplateFileNameAdjusted[:-16]+".root"
+      outputRootfile = TemplateFileNameAdjusted[:-7]+".root"
       FileName = outputRootfile[:-5]
         #if args.verbose:                                                                                                                                                                                                               
       if args.verbose: print(pycolors.red+FileName+pycolors.end)
@@ -354,8 +373,10 @@ for path in pathArray:
         cmsRunCommand = "cmsRun "+NewDirectoryPath+"/"+TemplateFileNameAdjusted
         CreateSubmissionScript(Pathtodirectory, DirectoryName, CMSSW_BASE, cmsRunCommand, FileName, CreateEndOfSubmissionScript)
         jobInBatch = False
-        for item_ask_condor in ask_condor:
-            if FileName in item_ask_condor:
+        if FileName in ask_condor_getFileNames:
+#
+ #       for item_ask_condor in ask_condor:
+  #          if FileName in item_ask_condor:
                 jobInBatch = True
                 if args.verbose: print("Job is already at HTCondor. No Job submission")
         if not jobInBatch:
